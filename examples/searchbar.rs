@@ -146,7 +146,7 @@ impl<'a> Interface<'a> for InterfaceStruct<'a> {
             &BoxStruct { x: 2, y: 2, width: 50, height: 10, border: true }
         );
 
-        textarea.display_border();
+        textarea.display();
 
         self.r.print(40,
                       20,
@@ -161,19 +161,20 @@ impl<'a> Interface<'a> for InterfaceStruct<'a> {
     fn key_press(&self, key: &Key, textarea: &mut TextArea) {
         match key {
             &Key::Char(c) => {
-                textarea.text.push(c);
+                textarea.push(c);
             }
             &Key::Backspace => {
-                textarea.text.pop();
+                textarea.pop();
             }
             _ => {}
         }
-        self.r.print(1,
+        /*self.r.print(1,
                       1,
                       rustbox::RB_NORMAL,
                       Color::White,
                       Color::Black,
-                      &textarea.text.to_string());
+                      &textarea.to_string());
+        */
         self.r.print(1, 1, rustbox::RB_NORMAL, Color::Black, Color::White, "s");
         draw_suggestion(self.r, textarea.text.len(), 2);
         //draw_key(&self.r, &key, &mut textarea);

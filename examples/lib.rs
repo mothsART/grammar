@@ -31,15 +31,8 @@ pub struct TextArea<'a> {
     errors: Vec<TextError>,
 }
 
-pub trait Box<'a> {
-    fn new(rustbox: &'a RustBox, box_s: &BoxStruct) -> TextArea<'a>;
-    fn push(&mut self, character: char);
-    fn pop(&mut self);
-    fn display(&mut self);
-}
-
-impl<'a> Box<'a> for TextArea<'a> {
-    fn new(rustbox: &'a RustBox, box_s: &BoxStruct) -> TextArea<'a> {
+impl<'a> TextArea<'a> {
+    pub fn new(rustbox: &'a RustBox, box_s: &BoxStruct) -> TextArea<'a> {
         let mut text = Vec::new();
         text.push(String::new());
         TextArea {
@@ -51,7 +44,7 @@ impl<'a> Box<'a> for TextArea<'a> {
             errors: Vec::new()
         }
     }
-    fn push(&mut self, character: char) {
+    pub fn push(&mut self, character: char) {
         if self.cursor_position_y + 2 == self.height
         && self.cursor_position_x + 1 == self.width {
             return;
@@ -67,7 +60,7 @@ impl<'a> Box<'a> for TextArea<'a> {
         self.text[self.cursor_position_y].push(character);
     }
 
-    fn pop(&mut self) {
+    pub fn pop(&mut self) {
         if self.cursor_position_y == 0
         && self.cursor_position_x == 0 {
             return;
@@ -80,7 +73,16 @@ impl<'a> Box<'a> for TextArea<'a> {
         self.text[self.cursor_position_y].pop();
     }
 
-    fn display(&mut self) {
+    pub fn move_cursor(&mut self, deplacement_x: isize, deplacement_y: isize) {
+        if (self.cursor_position_x == 0 && deplacement_x == -1)
+        {
+            return;
+        }
+        let new_cursor_position_x = self.cursor_position_x as isize + deplacement_x;
+        self.cursor_position_x = new_cursor_position_x as usize;
+    }
+
+    pub fn display(&mut self) {
         // The 4th corners
         self.rustbox.print(self.x,
                       self.y,
@@ -169,4 +171,12 @@ impl<'a> Box<'a> for TextArea<'a> {
             inc += 1;
         }
     }
+}
+
+pub struct Dico {
+    pub words: Vec<String>
+}
+
+impl Dico {
+
 }

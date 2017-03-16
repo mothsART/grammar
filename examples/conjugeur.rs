@@ -57,9 +57,6 @@ fn main() {
     display_fieldset(&rustbox, FieldSet{ x: 4, y: 11, width: 25, height: 10, title: "Indicatif" });
     rustbox.print(7, 12, rustbox::RB_BOLD, Color::Blue, Color::Black, "Présent");
     rustbox.print(7, 13, rustbox::RB_BOLD, Color::White, Color::Black, "je suis");
-    // rustbox.print(1, 1, rustbox::RB_BOLD, Color::White, Color::Black, "Hello, world!");
-    // rustbox.print(1, 3, rustbox::RB_BOLD, Color::White, Color::Black,
-    //               "Press 'q' to quit.");
     rustbox.present();
     loop {
         match rustbox.poll_event(false) {
