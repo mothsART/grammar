@@ -1,0 +1,42 @@
+[package]
+name = "grammar"
+version = "0.1.0"
+authors = ["Ferry Jérémie <ferryjeremie@free.fr>"]
+
+[dependencies]
+#rustbox = "0.9"
+cursive = "0.5"
+rand = "*"
+regex = "*"
+bencher = "*"
+lazy_static = "0.2"
+clippy = {version = "*", optional = true}
+rocket = "0.3.5"
+rocket_codegen = "0.3.5"
+yansi = "0.3.4"
+tera            = "0.10"
+
+[dependencies.rocket_contrib]
+#git              = "https://github.com/SergioBenitez/Rocket.git"
+#rev              = "ef4c2fd"
+default-features = false
+features = ["tera_templates", "msgpack"]
+
+[features]
+default = []
+
+[profile.release]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+
+[profile.bench]
+opt-level = 3
+debug = false
+rpath = false
+lto = true
+
+[[bench]]
+name = "example"
+harness = false
